@@ -1,16 +1,9 @@
+import { Newsletter } from "@/utils/newsletter/getAllNewsLetter";
 import { useState, useMemo } from "react";
 
-interface NewsletterItem {
-  id: string;
-  title: string;
-  summary: string;
-  keywords: string[];
-  time: string;
-  readTime: string;
-  slug: string;
-}
 
-export function useNewsletterFilters(initialData: NewsletterItem[]) {
+
+export function useNewsletterFilters(initialData: Newsletter[]) {
   const [search, setSearch] = useState("");
   const [sortOrder, setSortOrder] = useState("newest");
   const [selectedMonth, setSelectedMonth] = useState("all");

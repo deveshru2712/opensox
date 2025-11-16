@@ -11,7 +11,7 @@ export async function generateStaticParams() {
   return getAllNewsletterSlugs().map((slug) => ({ slug }));
 }
 
-function sanitizeHtml(html: string): string {
+function normalizeContentWidths(html: string): string {
   return html
     .replace(/style="[^"]*width:\s*\d+px[^"]*"/gi, "")
     .replace(/style="[^"]*min-width:\s*\d+px[^"]*"/gi, "")
@@ -33,7 +33,7 @@ export default async function NewsletterPage({
     return notFound();
   }
 
-  const sanitizedHtml = sanitizeHtml(newsletter.html);
+  const normalizedHtml = normalizeContentWidths(newsletter.html);
 
   return (
     <main className="min-h-screen overflow-x-hidden">
@@ -89,7 +89,7 @@ export default async function NewsletterPage({
                          prose-img:max-w-full prose-img:h-auto
                          prose-table:overflow-x-auto prose-table:block
                          prose-pre:max-w-full prose-pre:overflow-x-auto"
-              dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
+              dangerouslySetInnerHTML={{ __html: normalizedHtml }}
             />
           </section>
 

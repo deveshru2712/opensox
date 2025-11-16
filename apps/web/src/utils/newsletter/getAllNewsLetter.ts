@@ -12,39 +12,56 @@ export type Newsletter = {
   slug: string;
 };
 
+
 const newsletterDir = path.join(process.cwd(), "content/newsletters");
 
 export function getAllNewsLetter(): Newsletter[] {
-  const files = fs.readdirSync(newsletterDir);
+  try {
+    // Check if directory exists
+    if (!fs.existsSync(newsletterDir)) {
+      return [];
+    }
 
-  return files
-    .filter((file) => {
-      // Skip files starting with "example"
-      if (file.startsWith("example")) return false;
-      // Only include .md and .mdx files
-      return file.endsWith(".md") || file.endsWith(".mdx");
-    })
-    .map((filename) => {
-      const filePath = path.join(newsletterDir, filename);
-      const raw = fs.readFileSync(filePath, "utf8");
-      const { data } = matter(raw);
+    const files = fs.readdirSync(newsletterDir);
 
-      const slug = filename.replace(/\.mdx?$/, "");
+    return files
+      .filter((file) => {
+        // Skip files starting with "example"
+        if (file.startsWith("example")) return false;
+        // Only include .md files
+        return file.endsWith(".md");
+      })
+      .map((filename) => {
+        try {
+          const filePath = path.join(newsletterDir, filename);
+          const raw = fs.readFileSync(filePath, "utf8");
+          const { data } = matter(raw);
 
-      const keywords = Array.isArray(data.keywords)
-        ? data.keywords
-        : typeof data.keywords === "string"
-          ? data.keywords.split(",").map((k: string) => k.trim())
-          : [];
+          const slug = filename.replace(/\.md$/, "");
 
-      return {
-        id: data.id ?? slug,
-        title: data.title ?? "Untitled Newsletter",
-        summary: data.summary ?? "",
-        keywords,
-        time: data.time ?? data.date ?? new Date().toISOString(),
-        readTime: data.readTime ?? "1 min read",
-        slug,
-      } satisfies Newsletter;
-    });
+          const keywords = Array.isArray(data.keywords)
+            ? data.keywords
+            : typeof data.keywords === "string"
+              ? data.keywords.split(",").map((k: string) => k.trim())
+              : [];
+
+          return {
+            id: data.id ?? slug,
+            title: data.title ?? "Untitled Newsletter",
+            summary: data.summary ?? "",
+            keywords,
+            time: data.time ?? data.date ?? new Date().toISOString(),
+            readTime: data.readTime ?? "1 min read",
+            slug,
+          } satisfies Newsletter;
+        } catch (fileError) {
+          // Silently skip failed files
+          return null;
+        }
+      })
+      .filter((newsletter): newsletter is Newsletter => newsletter !== null);
+  } catch (error) {
+    // Silently fail and return empty array
+    return [];
+  }
 }
