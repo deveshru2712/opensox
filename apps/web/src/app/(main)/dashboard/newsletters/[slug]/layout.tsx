@@ -11,9 +11,7 @@ export default function NewsletterLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const { isLoading } = useSubscription();
-
-  const isPaidUser = true;
+  const { isLoading, isPaidUser } = useSubscription();
 
   useEffect(() => {
     if (!isLoading && !isPaidUser) {
