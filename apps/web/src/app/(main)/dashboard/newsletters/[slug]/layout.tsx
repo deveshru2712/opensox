@@ -17,7 +17,7 @@ export default function NewsletterLayout({
     if (!isLoading && !isPaidUser) {
       router.replace("/pricing");
     }
-  }, []);
+  }, [isLoading, isPaidUser, router]);
 
   if (isLoading) {
     return <NewsletterSkeleton />;
