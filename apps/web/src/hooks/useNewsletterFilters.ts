@@ -55,7 +55,6 @@ export function useNewsletterFilters(initialData: Newsletter[]) {
             return monthYear === selectedMonth;
           });
 
-    
     return [...filteredByMonth].sort((a, b) => {
       const dateA = new Date(a.time).getTime();
       const dateB = new Date(b.time).getTime(); 
