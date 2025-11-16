@@ -31,7 +31,7 @@ export function useNewsletterFilters(initialData: Newsletter[]) {
   // Filter and sort newsletters
   const filteredAndSorted = useMemo(() => {
     // Filter by search
-    let filtered = initialData.filter((item) => {
+    const filtered = initialData.filter((item) => {
       const searchLower = search.toLowerCase();
       return (
         item.title.toLowerCase().includes(searchLower) ||
@@ -57,13 +57,13 @@ export function useNewsletterFilters(initialData: Newsletter[]) {
 
     return [...filteredByMonth].sort((a, b) => {
       const dateA = new Date(a.time).getTime();
-      const dateB = new Date(b.time).getTime(); 
-      
+      const dateB = new Date(b.time).getTime();
+
       // Handle invalid dates
       if (isNaN(dateA) || isNaN(dateB)) {
         return 0;
       }
-      
+
       return sortOrder === "newest" ? dateB - dateA : dateA - dateB;
     });
   }, [initialData, search, selectedMonth, sortOrder]);
