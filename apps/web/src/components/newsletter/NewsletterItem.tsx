@@ -1,4 +1,5 @@
 import { Clock2Icon } from "lucide-react";
+import { redirect } from "next/navigation";
 
 interface NewsletterItemProps {
   title: string;
@@ -6,6 +7,7 @@ interface NewsletterItemProps {
   readTime?: string;
   summary?: string;
   keywords?: string[];
+  slug: string;
 }
 
 export default function NewsletterItem({
@@ -14,6 +16,7 @@ export default function NewsletterItem({
   summary,
   keywords,
   readTime,
+  slug,
 }: NewsletterItemProps) {
   return (
     <div
@@ -25,6 +28,7 @@ export default function NewsletterItem({
         hover:border-purple-400/40
         transition-all duration-200
       "
+      onClick={() => redirect(`/dashboard/newsletters/${slug}`)}
     >
       <div className="flex flex-col gap-2">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1">

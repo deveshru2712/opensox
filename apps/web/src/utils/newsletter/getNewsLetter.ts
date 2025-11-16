@@ -9,6 +9,7 @@ export type Newsletter = {
   keywords: string[];
   time: string;
   readTime: string;
+  slug: string;
 };
 
 const newsletterDir = path.join(process.cwd(), "content/newsletters");
@@ -23,7 +24,8 @@ export function getAllNewsLetter(): Newsletter[] {
       const raw = fs.readFileSync(filePath, "utf8");
       const { data } = matter(raw);
 
-      // Normalize keywords
+      const slug = filename.replace(/\.mdx?$/, "");
+
       const keywords = Array.isArray(data.keywords)
         ? data.keywords
         : typeof data.keywords === "string"
@@ -31,12 +33,13 @@ export function getAllNewsLetter(): Newsletter[] {
           : [];
 
       return {
-        id: data.id ?? filename.replace(/\.mdx?$/, ""),
+        id: data.id ?? slug,
         title: data.title ?? "Untitled Newsletter",
         summary: data.summary ?? "",
         keywords,
         time: data.time ?? data.date ?? new Date().toISOString(),
         readTime: data.readTime ?? "1 min read",
+        slug,
       } satisfies Newsletter;
     });
 }
