@@ -18,7 +18,12 @@ export function getAllNewsLetter(): Newsletter[] {
   const files = fs.readdirSync(newsletterDir);
 
   return files
-    .filter((file) => file.endsWith(".md") || file.endsWith(".mdx"))
+    .filter((file) => {
+      // Skip files starting with "example"
+      if (file.startsWith("example")) return false;
+      // Only include .md and .mdx files
+      return file.endsWith(".md") || file.endsWith(".mdx");
+    })
     .map((filename) => {
       const filePath = path.join(newsletterDir, filename);
       const raw = fs.readFileSync(filePath, "utf8");

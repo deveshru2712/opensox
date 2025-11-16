@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import {
   getAllNewsletterSlugs,
   getNewsletterBySlug,
-} from "@/utils/newsletter/markdown";
+} from "@/utils/newsletter/getNewsletterBySlug";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import { CalendarDaysIcon, ChevronLeft } from "lucide-react";
 import Link from "next/link";

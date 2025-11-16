@@ -1,71 +1,38 @@
 "use client";
 
-import { useState, useMemo } from "react";
 import { Search } from "lucide-react";
 import NewsletterItem from "@/components/newsletter/NewsletterItem";
 import CustomDropdown from "@/components/newsletter/Dropdown";
+import { useNewsletterFilters } from "@/hooks/useNewsletterFilters";
+
+interface NewsletterData {
+  id: string;
+  title: string;
+  summary: string;
+  keywords: string[];
+  time: string;
+  readTime: string;
+  slug: string;
+}
 
 export default function NewsletterPage({
   initialData,
 }: {
-  initialData: {
-    id: string;
-    title: string;
-    summary: string;
-    keywords: string[];
-    time: string;
-    readTime: string;
-    slug: string;
-  }[];
+  initialData: NewsletterData[];
 }) {
-  const [search, setSearch] = useState("");
-  const [sortOrder, setSortOrder] = useState("newest");
-  const [selectedMonth, setSelectedMonth] = useState("all");
-
-  const availableMonths = useMemo(() => {
-    const months = new Set<string>();
-    initialData.forEach((item) => {
-      const date = new Date(item.time);
-      const monthYear = date.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-      });
-      months.add(monthYear);
-    });
-    return Array.from(months).sort(
-      (a, b) => new Date(b).getTime() - new Date(a).getTime()
-    );
-  }, [initialData]);
-
-  const monthOptions = [
-    { label: "All Months", value: "all" },
-    ...availableMonths.map((month) => ({
-      label: month,
-      value: month,
-    })),
-  ];
-
-  const filtered = initialData.filter((item) => {
-    const text =
-      `${item.title} ${item.summary} ${item.keywords.join(" ")}`.toLowerCase();
-    return text.includes(search.toLowerCase());
-  });
-
-  const filteredByMonth = filtered.filter((item) => {
-    if (selectedMonth === "all") return true;
-    const itemDate = new Date(item.time);
-    const itemMonthYear = itemDate.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-    });
-    return itemMonthYear === selectedMonth;
-  });
-
-  const sorted = [...filteredByMonth].sort((a, b) => {
-    const dateA = new Date(a.time).getTime();
-    const dateB = new Date(b.time).getTime();
-    return sortOrder === "newest" ? dateB - dateA : dateA - dateB;
-  });
+  const {
+    search,
+    setSearch,
+    sortOrder,
+    setSortOrder,
+    selectedMonth,
+    setSelectedMonth,
+    monthOptions,
+    filteredAndSorted,
+    clearFilters,
+    hasActiveFilters,
+    resultCount,
+  } = useNewsletterFilters(initialData);
 
   return (
     <div className="w-full py-6 px-4 sm:px-8">
@@ -119,15 +86,15 @@ export default function NewsletterPage({
         </div>
       </div>
 
-      {(search || selectedMonth !== "all") && (
+      {hasActiveFilters && (
         <div className="text-sm text-gray-400 mt-2">
-          {sorted.length} result{sorted.length !== 1 ? "s" : ""} found
+          {resultCount} result{resultCount !== 1 ? "s" : ""} found
         </div>
       )}
 
       <div className="mt-12 flex flex-col gap-5">
-        {sorted.length > 0 ? (
-          sorted.map((item) => (
+        {filteredAndSorted.length > 0 ? (
+          filteredAndSorted.map((item) => (
             <NewsletterItem
               key={item.id}
               title={item.title}
@@ -141,12 +108,9 @@ export default function NewsletterPage({
         ) : (
           <div className="text-center py-12">
             <p className="text-gray-400 text-lg">No newsletters found.</p>
-            {(search || selectedMonth !== "all") && (
+            {hasActiveFilters && (
               <button
-                onClick={() => {
-                  setSearch("");
-                  setSelectedMonth("all");
-                }}
+                onClick={clearFilters}
                 className="mt-4 text-purple-400 hover:text-purple-300 text-sm underline"
               >
                 Clear all filters

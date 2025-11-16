@@ -1,4 +1,4 @@
-import { getAllNewsLetter } from "@/utils/newsletter/getNewsLetter";
+import { getAllNewsLetter } from "@/utils/newsletter/getAllNewsLetter";
 import NewsletterPage from "./NewsletterPage";
 
 export default function Page() {
