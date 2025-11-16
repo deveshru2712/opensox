@@ -37,17 +37,19 @@ export default function CustomDropdown({
       );
 
       switch (e.key) {
-        case "ArrowDown":
+        case "ArrowDown": {
           e.preventDefault();
           const nextIndex = (currentIndex + 1) % options.length;
           optionsRef.current[nextIndex]?.focus();
           break;
-        case "ArrowUp":
+        }
+        case "ArrowUp": {
           e.preventDefault();
           const prevIndex =
             currentIndex <= 0 ? options.length - 1 : currentIndex - 1;
           optionsRef.current[prevIndex]?.focus();
           break;
+        }
         case "Escape":
           setOpen(false);
           buttonRef.current?.focus();
@@ -87,9 +89,6 @@ export default function CustomDropdown({
             setOpen(true);
           }
         }}
-        aria-haspopup="listbox"
-        aria-expanded={open}
-        aria-labelledby="dropdown-label"
         className="
           w-full bg-black/20 border border-white/10 rounded-lg
           px-3 py-2 text-sm text-gray-200 flex items-center justify-between
@@ -106,9 +105,7 @@ export default function CustomDropdown({
       </button>
 
       {open && (
-        <div
-          role="listbox"
-          aria-labelledby="dropdown-label"
+        <div        
           className="
             absolute mt-2 w-full
             bg-neutral-900 text-white
