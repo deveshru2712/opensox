@@ -1,62 +1,70 @@
-import { Newsletter } from "@/utils/newsletter/getAllNewsLetter";
 import { useState, useMemo } from "react";
+import { Newsletter } from "@/utils/newsletter/getAllNewsLetter";
 
-
+type SortOrder = "newest" | "oldest";
 
 export function useNewsletterFilters(initialData: Newsletter[]) {
   const [search, setSearch] = useState("");
-  const [sortOrder, setSortOrder] = useState("newest");
+  const [sortOrder, setSortOrder] = useState<SortOrder>("newest");
   const [selectedMonth, setSelectedMonth] = useState("all");
 
-  const availableMonths = useMemo(() => {
+  // Generate month options from the data
+  const monthOptions = useMemo(() => {
     const months = new Set<string>();
     initialData.forEach((item) => {
       const date = new Date(item.time);
       const monthYear = date.toLocaleDateString("en-US", {
-        year: "numeric",
         month: "long",
+        year: "numeric",
       });
       months.add(monthYear);
     });
-    return Array.from(months).sort(
-      (a, b) => new Date(b).getTime() - new Date(a).getTime()
-    );
+
+    return [
+      { label: "All Months", value: "all" },
+      ...Array.from(months)
+        .sort((a, b) => new Date(b).getTime() - new Date(a).getTime())
+        .map((month) => ({ label: month, value: month })),
+    ];
   }, [initialData]);
 
-  const monthOptions = useMemo(
-    () => [
-      { label: "All Months", value: "all" },
-      ...availableMonths.map((month) => ({
-        label: month,
-        value: month,
-      })),
-    ],
-    [availableMonths]
-  );
-
+  // Filter and sort newsletters
   const filteredAndSorted = useMemo(() => {
     // Filter by search
-    const filtered = initialData.filter((item) => {
-      const text =
-        `${item.title} ${item.summary} ${item.keywords.join(" ")}`.toLowerCase();
-      return text.includes(search.toLowerCase());
+    let filtered = initialData.filter((item) => {
+      const searchLower = search.toLowerCase();
+      return (
+        item.title.toLowerCase().includes(searchLower) ||
+        item.summary.toLowerCase().includes(searchLower) ||
+        item.keywords.some((keyword) =>
+          keyword.toLowerCase().includes(searchLower)
+        )
+      );
     });
 
     // Filter by month
-    const filteredByMonth = filtered.filter((item) => {
-      if (selectedMonth === "all") return true;
-      const itemDate = new Date(item.time);
-      const itemMonthYear = itemDate.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-      });
-      return itemMonthYear === selectedMonth;
-    });
+    const filteredByMonth =
+      selectedMonth === "all"
+        ? filtered
+        : filtered.filter((item) => {
+            const date = new Date(item.time);
+            const monthYear = date.toLocaleDateString("en-US", {
+              month: "long",
+              year: "numeric",
+            });
+            return monthYear === selectedMonth;
+          });
 
-    // Sort
+    
     return [...filteredByMonth].sort((a, b) => {
       const dateA = new Date(a.time).getTime();
-      const dateB = new Date(b.time).getTime();
+      const dateB = new Date(b.time).getTime(); 
+      
+      // Handle invalid dates
+      if (isNaN(dateA) || isNaN(dateB)) {
+        return 0;
+      }
+      
       return sortOrder === "newest" ? dateB - dateA : dateA - dateB;
     });
   }, [initialData, search, selectedMonth, sortOrder]);
@@ -64,9 +72,11 @@ export function useNewsletterFilters(initialData: Newsletter[]) {
   const clearFilters = () => {
     setSearch("");
     setSelectedMonth("all");
+    setSortOrder("newest");
   };
 
   const hasActiveFilters = search !== "" || selectedMonth !== "all";
+  const resultCount = filteredAndSorted.length;
 
   return {
     search,
@@ -75,11 +85,10 @@ export function useNewsletterFilters(initialData: Newsletter[]) {
     setSortOrder,
     selectedMonth,
     setSelectedMonth,
-    availableMonths,
     monthOptions,
     filteredAndSorted,
     clearFilters,
     hasActiveFilters,
-    resultCount: filteredAndSorted.length,
+    resultCount,
   };
 }
