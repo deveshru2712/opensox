@@ -175,7 +175,7 @@ export default function ModuleDocPage() {
 
           <div className="bg-ox-content rounded-lg p-8 border border-ox-header text-center">
             <Badge className="bg-ox-purple/20 text-ox-purple border-ox-purple/30 mb-4">
-              Coming Soon
+              Soon
             </Badge>
             <p className="text-gray-300 text-lg">
               This module is coming very soon. Stay tuned!

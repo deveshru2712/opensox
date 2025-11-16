@@ -28,7 +28,7 @@ const tableColumns = [
   "Module Name",
   "Doc",
   "Watch",
-  "Live Sessions / Doubts",
+  "Live Sessions",
   "Done?",
 ] as const;
 
@@ -59,10 +59,12 @@ const SheetTableRow = memo(function SheetTableRow({
 
       <TableCell className="text-white text-[12px] sm:text-sm p-3">
         <div className="flex items-center gap-2">
-          <span>{module.name}</span>
+          <span className="max-w-[80px] md:max-w-none break-words">
+            {module.name}
+          </span>
           {isComingSoon && (
             <Badge className="bg-ox-purple/20 text-ox-purple border-ox-purple/30 text-[10px] px-2 py-0.5">
-              Coming Soon
+              Soon
             </Badge>
           )}
         </div>
@@ -324,18 +326,19 @@ export default function SheetPage() {
   }
 
   return (
-    <div className="w-full h-full flex flex-col p-6 sm:p-6 overflow-hidden">
-      <div className="flex items-center justify-between pb-6 flex-shrink-0 flex-wrap gap-4">
-        <div className="flex items-center gap-3 flex-wrap">
+    <div className="w-full h-full flex flex-col p-2 sm:p-6 overflow-hidden">
+      <div className="w-[95vw] md:w-[90vw] lg:w-full flex items-start justify-between pb-6 flex-row lg:flex-shrink-0 lg:gap-4">
+        <div className="flex flex-col gap-2">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-white tracking-tight">
             30 days of Open Source sheet
           </h2>
           <span className="text-xs text-ox-white">
-            (i don&apos;t have a marketing budget, please share this sheet with
-            others 🙏 :)
+            (i don&apos;t have a marketing budget,
+            <br className="sm:hidden" /> please share this sheet with others 🙏
+            :)
           </span>
         </div>
-        <div className="flex items-center gap-3 flex-shrink-0">
+        <div className="flex items-center md:gap-3 flex-shrink-0">
           {copied && (
             <Badge className="bg-ox-purple text-white border-0 flex items-center gap-1">
               <Check className="h-3 w-3" />
@@ -360,63 +363,64 @@ export default function SheetPage() {
           </button>
         </div>
       </div>
+      <div className="w-[96vw] lg:w-full flex-1 flex flex-col overflow-hidden">
+        {/* Progress Bar */}
+        <div className="mb-6 flex-shrink-0">
+          <ProgressBar completed={completedCount} total={totalModules} />
+        </div>
 
-      {/* Progress Bar */}
-      <div className="mb-6 flex-shrink-0">
-        <ProgressBar completed={completedCount} total={totalModules} />
-      </div>
+        <div className="mb-6 flex-shrink-0">
+          <p className="text-white text-sm italic">
+            &quot;sometimes, these modules may feel boring and hard af but
+            that&apos;s the cost of learning something worthy. you go through
+            it. you win. simple.&quot; — ajeet
+          </p>
+        </div>
 
-      <div className="mb-6 flex-shrink-0">
-        <p className="text-white text-sm italic">
-          &quot;sometimes, these modules may feel boring and hard af but
-          that&apos;s the cost of learning something worthy. you go through it.
-          you win. simple.&quot; — ajeet
-        </p>
-      </div>
-
-      <div
-        className="
+        <div
+          className="
           w-full bg-ox-content border border-ox-header rounded-lg
-          flex-1 overflow-y-auto overflow-x-auto relative
+          flex-1 overflow-auto relative
           [&::-webkit-scrollbar]:w-2
-          [&::-webkit-scrollbar]:h-1
+          [&::-webkit-scrollbar]:h-2
           [&::-webkit-scrollbar-track]:bg-transparent
           [&::-webkit-scrollbar-thumb]:bg-ox-purple/30
           [&::-webkit-scrollbar-thumb]:rounded-full
           [&::-webkit-scrollbar-thumb]:hover:bg-ox-purple/50
         "
-      >
-        <Table className="w-full min-w-[800px]">
-          <TableHeader>
-            <TableRow className="border-b border-ox-header bg-ox-header">
-              {tableColumns.map((name, i) => (
-                <TableHead
-                  key={name}
-                  className={[
-                    "px-3 py-3 font-semibold text-white text-[12px] sm:text-sm whitespace-nowrap",
-                    "sticky top-0 z-30 bg-ox-header",
-                    i === 0 ? "text-left" : "text-center",
-                  ].join(" ")}
-                >
-                  {name}
-                </TableHead>
-              ))}
-            </TableRow>
-          </TableHeader>
+        >
+          <Table className="w-full min-w-[600px] sm:min-w-[800px]">
+            <TableHeader>
+              <TableRow className="border-b border-ox-header bg-ox-header">
+                {tableColumns.map((name, i) => (
+                  <TableHead
+                    key={name}
+                    className={[
+                      "px-3 py-3 font-semibold text-white text-[12px] sm:text-sm whitespace-nowrap",
+                      "sticky top-0 z-30 bg-ox-header",
+                      i === 0 ? "text-left" : "text-center",
+                    ].join(" ")}
+                  >
+                    {name}
+                  </TableHead>
+                ))}
+              </TableRow>
+            </TableHeader>
 
-          <TableBody>
-            {sheetModules.map((module, index) => (
-              <SheetTableRow
-                key={module.id}
-                module={module}
-                index={index}
-                isCompleted={completedSteps.includes(module.id)}
-                onCheckboxChange={handleCheckboxChange}
-                isPaidUser={isPaidUser}
-              />
-            ))}
-          </TableBody>
-        </Table>
+            <TableBody>
+              {sheetModules.map((module, index) => (
+                <SheetTableRow
+                  key={module.id}
+                  module={module}
+                  index={index}
+                  isCompleted={completedSteps.includes(module.id)}
+                  onCheckboxChange={handleCheckboxChange}
+                  isPaidUser={isPaidUser}
+                />
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       </div>
     </div>
   );
