@@ -1,4 +1,6 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
+import tailwindcssTypography from "@tailwindcss/typography";
 
 const config: Config = {
   darkMode: ["class"],
@@ -120,9 +122,95 @@ const config: Config = {
         DMfont: ["var(--font-dm-mono-med)", "var(--font-dm-mono-req)"],
         MonaSans: ["var(--font-mona-sans-med)", "var(--font-mona-sans-req)"],
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: "none",
+            color: "#e5e7eb",
+            a: {
+              color: "#9455f4",
+              "&:hover": {
+                color: "#7A45C3",
+              },
+              textDecoration: "none",
+            },
+            strong: {
+              color: "#ffffff",
+              fontWeight: "600",
+            },
+            code: {
+              color: "#ec4899",
+              backgroundColor: "#1f2937",
+              padding: "0.25rem 0.375rem",
+              borderRadius: "0.25rem",
+              fontWeight: "400",
+            },
+            "code::before": {
+              content: '""',
+            },
+            "code::after": {
+              content: '""',
+            },
+            pre: {
+              backgroundColor: "#0f172a",
+              color: "#e5e7eb",
+              borderRadius: "0.5rem",
+              padding: "1rem",
+            },
+            "pre code": {
+              backgroundColor: "transparent",
+              padding: "0",
+              color: "inherit",
+            },
+            h1: {
+              color: "#ffffff",
+              fontWeight: "700",
+            },
+            h2: {
+              color: "#ffffff",
+              fontWeight: "700",
+            },
+            h3: {
+              color: "#ffffff",
+              fontWeight: "600",
+            },
+            h4: {
+              color: "#ffffff",
+              fontWeight: "600",
+            },
+            blockquote: {
+              color: "#9ca3af",
+              borderLeftColor: "#9455f4",
+              fontStyle: "italic",
+            },
+            hr: {
+              borderColor: "#252525",
+            },
+            img: {
+              borderRadius: "0.5rem",
+              boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
+            },
+            table: {
+              width: "100%",
+            },
+            thead: {
+              backgroundColor: "#1f2937",
+            },
+            "thead th": {
+              color: "#ffffff",
+              fontWeight: "600",
+              padding: "0.75rem 1rem",
+            },
+            "tbody td": {
+              padding: "0.75rem 1rem",
+              borderColor: "#252525",
+            },
+          },
+        },
+      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate, tailwindcssTypography],
 };
 
 export default config;

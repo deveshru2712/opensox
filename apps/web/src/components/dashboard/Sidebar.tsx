@@ -22,6 +22,7 @@ import { signOut, useSession } from "next-auth/react";
 import { ProfilePic } from "./ProfilePic";
 import { useSubscription } from "@/hooks/useSubscription";
 import { OpensoxProBadge } from "../sheet/OpensoxProBadge";
+import { Mailbox } from "lucide-react";
 
 const SIDEBAR_ROUTES = [
   {
@@ -63,6 +64,10 @@ export default function Sidebar() {
     } else {
       router.push("/pricing");
     }
+  };
+
+  const handleNewsLetter = () => {
+    router.push("/dashboard/newsletters");
   };
 
   return (
@@ -132,6 +137,30 @@ export default function Sidebar() {
         {!isCollapsed && !isPaidUser ? (
           <div
             className="w-full h-[44px] flex items-center rounded-md cursor-pointer transition-colors px-2 gap-3 pl-3 hover:bg-[#121214]"
+            onClick={handleNewsLetter}
+          >
+            <span className="shrink-0 text-[#eaeaea]">
+              <Mailbox className="size-5" />
+            </span>
+            <div className="flex items-center gap-1">
+              <h1 className="text-xs font-medium text-[#c8c8c8] group-hover:text-ox-purple">
+                Newsletter
+              </h1>
+              <OpensoxProBadge className="px-1.5 py-0.5 scale-75" />
+            </div>
+          </div>
+        ) : (
+          <SidebarItem
+            itemName="Newsletter"
+            onclick={handleNewsLetter}
+            icon={<Mailbox className="size-5" />}
+            collapsed={isCollapsed}
+          />
+        )}
+
+        {!isCollapsed && !isPaidUser ? (
+          <div
+            className="w-full h-[44px] flex items-center rounded-md cursor-pointer transition-colors px-2 gap-3 pl-3 hover:bg-[#121214]"
             onClick={proClickHandler}
           >
             <span className="shrink-0 text-[#eaeaea]">
@@ -149,8 +178,8 @@ export default function Sidebar() {
             itemName="Opensox Pro"
             onclick={proClickHandler}
             icon={<StarIcon className="size-5" />}
-          collapsed={isCollapsed}
-        />
+            collapsed={isCollapsed}
+          />
         )}
       </div>
 
