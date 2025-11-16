@@ -12,7 +12,6 @@ export type Newsletter = {
   slug: string;
 };
 
-
 const newsletterDir = path.join(process.cwd(), "content/newsletters");
 
 export function getAllNewsLetter(): Newsletter[] {
@@ -40,28 +39,29 @@ export function getAllNewsLetter(): Newsletter[] {
           const slug = filename.replace(/\.md$/, "");
 
           const keywords = Array.isArray(data.keywords)
-            ? data.keywords
+            ? (data.keywords as string[])
             : typeof data.keywords === "string"
-              ? data.keywords.split(",").map((k: string) => k.trim())
+              ? (data.keywords as string).split(",").map((k) => k.trim())
               : [];
 
           return {
-            id: data.id ?? slug,
-            title: data.title ?? "Untitled Newsletter",
-            summary: data.summary ?? "",
+            id: (data.id as string | undefined) ?? slug,
+            title: (data.title as string | undefined) ?? "Untitled Newsletter",
+            summary: (data.summary as string | undefined) ?? "",
             keywords,
-            time: data.time ?? data.date ?? new Date().toISOString(),
-            readTime: data.readTime ?? "1 min read",
+            time:
+              (data.time as string | undefined) ??
+              (data.date as string | undefined) ??
+              new Date().toISOString(),
+            readTime: (data.readTime as string | undefined) ?? "1 min read",
             slug,
           } satisfies Newsletter;
-        } catch (fileError) {
-          // Silently skip failed files
+        } catch {
           return null;
         }
       })
       .filter((newsletter): newsletter is Newsletter => newsletter !== null);
-  } catch (error) {
-    // Silently fail and return empty array
+  } catch {
     return [];
   }
 }
