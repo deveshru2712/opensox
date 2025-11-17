@@ -1,7 +1,7 @@
 ---
 id: "ugly-execution"
 title: "Ugly Execution: Why Imperfect Action Beats Perfect Planning"
-date: "2025-11-16"
+time: "2025-11-16"
 summary: "Stop waiting for perfect conditions. Learn why taking messy, imperfect action is infinitely more valuable than endless planning and preparation."
 keywords:
   [

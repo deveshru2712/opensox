@@ -4,7 +4,7 @@ import { Search } from "lucide-react";
 import NewsletterItem from "@/components/newsletter/NewsletterItem";
 import CustomDropdown from "@/components/newsletter/Dropdown";
 import { useNewsletterFilters } from "@/hooks/useNewsletterFilters";
-import { Newsletter } from "@/utils/newsletter/getAllNewsLetter";
+import { Newsletter } from "@/utils/newsletter/newsletter-metadata";
 
 export default function NewsletterPage({
   initialData,

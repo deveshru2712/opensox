@@ -1,7 +1,7 @@
 ---
 id: "from-farm-to-founder"
 title: "From Farm Boy to Founder: A Journey of Grit and Code"
-date: "2025-10-23"
+time: "2025-10-23"
 summary: "How one developer went from being a hotel receptionist with no college degree to building a startup with 10,000 users and multiple investment offers—all through self-taught programming and relentless determination."
 keywords:
   [

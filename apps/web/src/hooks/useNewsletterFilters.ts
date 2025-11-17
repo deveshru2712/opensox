@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Newsletter } from "@/utils/newsletter/getAllNewsLetter";
+import { Newsletter } from "@/utils/newsletter/newsletter-metadata";
 
 type SortOrder = "newest" | "oldest";
 
