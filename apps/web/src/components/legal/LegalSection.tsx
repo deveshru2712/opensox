@@ -6,7 +6,11 @@ interface LegalSectionProps {
   className?: string;
 }
 
-export function LegalSection({ title, children, className = "" }: LegalSectionProps) {
+export function LegalSection({
+  title,
+  children,
+  className = "",
+}: LegalSectionProps) {
   return (
     <section className={className}>
       {title && (
@@ -16,4 +20,3 @@ export function LegalSection({ title, children, className = "" }: LegalSectionPr
     </section>
   );
 }
-
