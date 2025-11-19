@@ -49,15 +49,15 @@ const SheetTableRow = memo(function SheetTableRow({
 
   return (
     <TableRow
-      className={`border-y border-ox-sidebar bg-ox-content hover:bg-ox-sidebar transition-colors ${
+      className={`border-y border-dash-border bg-ox-content hover:bg-ox-sidebar transition-colors ${
         isComingSoon ? "opacity-50" : ""
       }`}
     >
-      <TableCell className="text-white text-[12px] sm:text-sm p-3 text-left">
+      <TableCell className="text-text-primary text-[12px] sm:text-sm p-3 text-left">
         {index}
       </TableCell>
 
-      <TableCell className="text-white text-[12px] sm:text-sm p-3">
+      <TableCell className="text-text-primary text-[12px] sm:text-sm p-3">
         <div className="flex items-center gap-2">
           <span className="max-w-[80px] md:max-w-none break-words">
             {module.name}
@@ -72,7 +72,7 @@ const SheetTableRow = memo(function SheetTableRow({
 
       <TableCell className="text-center p-3">
         {isComingSoon ? (
-          <span className="inline-flex items-center gap-1 text-gray-500 cursor-not-allowed pointer-events-none">
+          <span className="inline-flex items-center gap-1 text-text-muted cursor-not-allowed pointer-events-none">
             <FileText className="h-4 w-4" />
             <span className="text-[12px] sm:text-sm font-medium">read</span>
           </span>
@@ -81,7 +81,7 @@ const SheetTableRow = memo(function SheetTableRow({
             href={`/sheet/${module.id}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-white hover:text-ox-purple transition-colors"
+            className="inline-flex items-center gap-1 text-text-primary hover:text-brand-purple transition-colors"
           >
             <FileText className="h-4 w-4" />
             <span className="text-[12px] sm:text-sm font-medium">read</span>
@@ -122,7 +122,7 @@ const SheetTableRow = memo(function SheetTableRow({
               onCheckboxChange(module.id, checked === true)
             }
             disabled={isComingSoon}
-            className="border-ox-purple/50 data-[state=checked]:bg-ox-purple data-[state=checked]:border-ox-purple data-[state=checked]:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+            className="border-ox-purple/50 data-[state=checked]:bg-ox-purple data-[state=checked]:border-ox-purple data-[state=checked]:text-text-primary disabled:opacity-50 disabled:cursor-not-allowed"
           />
         </div>
       </TableCell>
@@ -320,7 +320,7 @@ export default function SheetPage() {
   if (isLoading) {
     return (
       <div className="w-full p-6 flex items-center justify-center h-[80vh]">
-        <p className="text-ox-gray">Loading...</p>
+        <p className="text-text-muted">Loading...</p>
       </div>
     );
   }
@@ -329,10 +329,10 @@ export default function SheetPage() {
     <div className="w-full h-full flex flex-col p-2 sm:p-6 overflow-hidden">
       <div className="w-[95vw] md:w-[90vw] lg:w-full flex items-start justify-between pb-6 flex-row lg:flex-shrink-0 lg:gap-4">
         <div className="flex flex-col gap-2">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-white tracking-tight">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-text-primary tracking-tight">
             30 days of Open Source sheet
           </h2>
-          <span className="text-xs text-ox-white">
+          <span className="text-xs text-text-secondary">
             (i don&apos;t have a marketing budget,
             <br className="sm:hidden" /> please share this sheet with others 🙏
             :)
@@ -340,14 +340,14 @@ export default function SheetPage() {
         </div>
         <div className="flex items-center md:gap-3 flex-shrink-0">
           {copied && (
-            <Badge className="bg-ox-purple text-white border-0 flex items-center gap-1">
+            <Badge className="bg-brand-purple text-text-primary border-0 flex items-center gap-1">
               <Check className="h-3 w-3" />
               Copied
             </Badge>
           )}
           <button
             onClick={handleDownloadPDF}
-            className="p-2 text-white hover:text-ox-purple transition-colors rounded-md hover:bg-ox-header/50"
+            className="p-2 text-text-primary hover:text-brand-purple transition-colors rounded-md hover:bg-ox-header/50"
             title="Download as PDF"
             aria-label="Download as PDF"
           >
@@ -355,7 +355,7 @@ export default function SheetPage() {
           </button>
           <button
             onClick={handleShare}
-            className="p-2 text-white hover:text-ox-purple transition-colors rounded-md hover:bg-ox-header/50"
+            className="p-2 text-text-primary hover:text-brand-purple transition-colors rounded-md hover:bg-ox-header/50"
             title="Share sheet"
             aria-label="Share sheet"
           >
@@ -370,7 +370,7 @@ export default function SheetPage() {
         </div>
 
         <div className="mb-6 flex-shrink-0">
-          <p className="text-white text-sm italic">
+          <p className="text-text-primary text-sm italic">
             &quot;sometimes, these modules may feel boring and hard af but
             that&apos;s the cost of learning something worthy. you go through
             it. you win. simple.&quot; — ajeet
@@ -379,25 +379,25 @@ export default function SheetPage() {
 
         <div
           className="
-          w-full bg-ox-content border border-ox-header rounded-lg
+          w-full bg-ox-content border border-dash-border rounded-lg
           flex-1 overflow-auto relative
           [&::-webkit-scrollbar]:w-2
           [&::-webkit-scrollbar]:h-2
           [&::-webkit-scrollbar-track]:bg-transparent
-          [&::-webkit-scrollbar-thumb]:bg-ox-purple/30
+          [&::-webkit-scrollbar-thumb]:bg-brand-purple/30
           [&::-webkit-scrollbar-thumb]:rounded-full
-          [&::-webkit-scrollbar-thumb]:hover:bg-ox-purple/50
+          [&::-webkit-scrollbar-thumb]:hover:bg-brand-purple/50
         "
         >
           <Table className="w-full min-w-[600px] sm:min-w-[800px]">
             <TableHeader>
-              <TableRow className="border-b border-ox-header bg-ox-header">
+              <TableRow className="border-b border-dash-border bg-dash-surface">
                 {tableColumns.map((name, i) => (
                   <TableHead
                     key={name}
                     className={[
-                      "px-3 py-3 font-semibold text-white text-[12px] sm:text-sm whitespace-nowrap",
-                      "sticky top-0 z-30 bg-ox-header",
+                      "px-3 py-3 font-semibold text-text-primary text-[12px] sm:text-sm whitespace-nowrap",
+                      "sticky top-0 z-30 bg-dash-surface",
                       i === 0 ? "text-left" : "text-center",
                     ].join(" ")}
                   >

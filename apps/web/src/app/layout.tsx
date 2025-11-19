@@ -11,15 +11,26 @@ import { SessionWrapper } from "./SessionWrapper";
 import { TRPCProvider } from "@/providers/trpc-provider";
 import { GeistSans } from "geist/font/sans";
 
-const dmReg = localFont({
-  src: "./fonts/DMMono-Regular.ttf",
-  variable: "--font-dm-mono-req",
+// DM Mono - Used for code, terminal, and monospace text
+const dmMono = localFont({
+  src: [
+    {
+      path: "./fonts/DMMono-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/DMMono-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+  ],
+  variable: "--font-dm-mono",
+  display: "swap",
 });
 
-const dmMed = localFont({
-  src: "./fonts/DMMono-Medium.ttf",
-  variable: "--font-dm-mono-med",
-});
+// Geist Sans - Primary font for body text and UI
+const geistSans = GeistSans;
 
 export const metadata: Metadata = {
   title: "Opensox",
@@ -39,7 +50,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${GeistSans.className} ${dmMed.variable} ${dmReg.variable} antialiased bg-background`}
+        className={`${geistSans.className} ${dmMono.variable} antialiased bg-background`}
       >
         <PostHogProvider>
           <ThemeProvider

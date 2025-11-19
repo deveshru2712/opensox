@@ -158,17 +158,17 @@ export default function ModuleDocPage() {
 
   if (currentModule.comingSoon) {
     return (
-      <div className="min-h-screen bg-ox-header text-white font-DMfont">
+      <div className="min-h-screen bg-ox-header text-text-primary font-DMfont">
         <div className="max-w-4xl mx-auto px-6 py-8">
           <div className="mb-6">
             <Link
               href="/dashboard/sheet"
-              className="inline-flex items-center gap-2 text-ox-purple hover:text-ox-purple-2 transition-colors mb-4"
+              className="inline-flex items-center gap-2 text-brand-purple-light hover:text-brand-purple transition-colors mb-4"
             >
               <ArrowLeft className="h-4 w-4" />
               <span>Back to Sheet</span>
             </Link>
-            <h1 className="text-3xl font-bold text-white mb-2">
+            <h1 className="text-3xl font-bold text-text-primary mb-2">
               {currentModule.name}
             </h1>
           </div>
@@ -177,7 +177,7 @@ export default function ModuleDocPage() {
             <Badge className="bg-ox-purple/20 text-ox-purple border-ox-purple/30 mb-4">
               Soon
             </Badge>
-            <p className="text-gray-300 text-lg">
+            <p className="text-text-secondary text-lg">
               This module is coming very soon. Stay tuned!
             </p>
           </div>
@@ -187,28 +187,28 @@ export default function ModuleDocPage() {
   }
 
   return (
-    <div className="min-h-screen bg-ox-header text-white font-DMfont">
+    <div className="min-h-screen bg-ox-header text-text-primary font-DMfont">
       <div className="max-w-4xl mx-auto px-6 py-8">
         {/* Header with back button and actions */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-4 flex-wrap gap-4">
             <Link
               href="/dashboard/sheet"
-              className="inline-flex items-center gap-2 text-ox-purple hover:text-ox-purple-2 transition-colors"
+              className="inline-flex items-center gap-2 text-brand-purple-light hover:text-brand-purple transition-colors"
             >
               <ArrowLeft className="h-4 w-4" />
               <span>Back to Sheet</span>
             </Link>
             <div className="flex items-center gap-3 flex-shrink-0">
               {copied && (
-                <Badge className="bg-ox-purple text-white border-0 flex items-center gap-1">
+                <Badge className="bg-brand-purple text-text-primary border-0 flex items-center gap-1">
                   <Check className="h-3 w-3" />
                   Copied
                 </Badge>
               )}
               <button
                 onClick={handleDownloadPDF}
-                className="p-2 text-white hover:text-ox-purple transition-colors rounded-md hover:bg-ox-content/50"
+                className="p-2 text-text-primary hover:text-brand-purple transition-colors rounded-md hover:bg-ox-content/50"
                 title="Download as PDF"
                 aria-label="Download as PDF"
               >
@@ -216,7 +216,7 @@ export default function ModuleDocPage() {
               </button>
               <button
                 onClick={handleShare}
-                className="p-2 text-white hover:text-ox-purple transition-colors rounded-md hover:bg-ox-content/50"
+                className="p-2 text-text-primary hover:text-brand-purple transition-colors rounded-md hover:bg-ox-content/50"
                 title="Share module"
                 aria-label="Share module"
               >
@@ -224,7 +224,7 @@ export default function ModuleDocPage() {
               </button>
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2">
+          <h1 className="text-3xl font-bold text-text-primary mb-2">
             {currentModule.name}
           </h1>
         </div>
@@ -234,7 +234,7 @@ export default function ModuleDocPage() {
           <div
             // eslint-disable-next-line react/no-danger -- Safe: docContent is sanitized with DOMPurify before rendering
             dangerouslySetInnerHTML={{ __html: sanitizedDocContent }}
-            className="text-white [&_h1]:text-2xl [&_h1]:font-bold [&_h1]:mb-4 [&_h1]:mt-6 [&_h1]:text-white [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:mb-3 [&_h2]:mt-5 [&_h2]:text-white [&_p]:text-gray-300 [&_p]:mb-4 [&_p]:leading-relaxed [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:mb-4 [&_ul]:text-gray-300 [&_li]:mb-2 [&_pre]:bg-ox-sidebar [&_pre]:p-4 [&_pre]:rounded [&_pre]:overflow-x-auto [&_pre]:mb-4 [&_pre]:font-DMfont [&_pre]:border [&_pre]:border-ox-header [&_code]:text-ox-purple [&_code]:bg-ox-sidebar [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:font-DMfont [&_img]:max-w-full [&_img]:h-auto [&_img]:rounded-lg [&_img]:my-5 [&_img]:border [&_img]:border-ox-header"
+            className="text-text-primary [&_h1]:text-2xl [&_h1]:font-bold [&_h1]:mb-4 [&_h1]:mt-6 [&_h1]:text-text-primary [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:mb-3 [&_h2]:mt-5 [&_h2]:text-text-primary [&_p]:text-text-secondary [&_p]:mb-4 [&_p]:leading-relaxed [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:mb-4 [&_ul]:text-text-secondary [&_li]:mb-2 [&_pre]:bg-ox-sidebar [&_pre]:p-4 [&_pre]:rounded [&_pre]:overflow-x-auto [&_pre]:mb-4 [&_pre]:font-DMfont [&_pre]:border [&_pre]:border-ox-header [&_code]:text-brand-purple [&_code]:bg-ox-sidebar [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:font-DMfont [&_img]:max-w-full [&_img]:h-auto [&_img]:rounded-lg [&_img]:my-5 [&_img]:border [&_img]:border-ox-header"
           />
         </div>
       </div>

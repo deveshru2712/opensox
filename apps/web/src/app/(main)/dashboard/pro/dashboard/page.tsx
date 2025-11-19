@@ -17,7 +17,7 @@ export default function ProDashboardPage() {
   if (isLoading) {
     return (
       <div className="w-full h-full flex items-center justify-center bg-ox-content">
-        <p className="text-white">Loading...</p>
+        <p className="text-text-primary">Loading...</p>
       </div>
     );
   }
@@ -29,7 +29,7 @@ export default function ProDashboardPage() {
   return (
     <div className="w-full h-full flex items-center justify-center bg-ox-content p-6">
       <div className="max-w-2xl mx-auto text-center">
-        <h1 className="text-2xl md:text-3xl font-semibold text-white mb-4">
+        <h1 className="text-2xl md:text-3xl font-semibold text-text-primary mb-4">
           hi investors, ajeetunc is on the way to deliver the shareholder value.
           soon you&apos;ll see all the pro perks here. thanks for investing
         </h1>

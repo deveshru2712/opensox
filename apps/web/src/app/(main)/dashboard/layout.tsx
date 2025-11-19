@@ -16,7 +16,7 @@ export default function DashboardLayout({
   const { showFilters } = useFilterStore();
   const { showSidebar, setShowSidebar } = useShowSidebar();
   return (
-    <div className="flex w-screen h-screen bg-ox-content overflow-hidden">
+    <div className="flex w-screen h-screen bg-dash-base overflow-hidden">
       {showFilters && <FiltersContainer />}
       <aside className="hidden xl:block h-full">
         <Sidebar />
@@ -28,16 +28,19 @@ export default function DashboardLayout({
           </div>
         )}
       </AnimatePresence>
-      <div className="flex-1 flex flex-col h-full bg-ox-content">
-        <div className="xl:hidden flex items-center h-16 px-4 border-b border-ox-header bg-ox-content">
+      <div className="flex-1 flex flex-col h-full bg-dash-base">
+        <div className="xl:hidden flex items-center h-16 px-4 border-b border-dash-border bg-dash-base">
           <IconWrapper onClick={() => setShowSidebar(true)}>
-            <Bars3Icon className="size-5 text-ox-purple" />
+            <Bars3Icon className="size-5 text-brand-purple" />
           </IconWrapper>
-          <Link href="/" className="ml-4 text-lg font-semibold text-ox-white hover:text-ox-purple transition-colors">
+          <Link
+            href="/"
+            className="ml-4 text-lg font-semibold text-text-primary hover:text-brand-purple transition-colors"
+          >
             Opensox
           </Link>
         </div>
-        <main className="flex-1 h-full overflow-auto bg-ox-content">
+        <main className="flex-1 h-full overflow-auto bg-dash-base">
           {children}
         </main>
       </div>
