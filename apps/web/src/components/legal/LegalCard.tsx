@@ -17,7 +17,7 @@ export function LegalCard({
       className={cn(
         "rounded-lg p-6",
         variant === "default"
-          ? "bg-surface-tertiary border border"
+          ? "bg-surface-tertiary border"
           : "bg-surface-tertiary border border-brand-purple",
         className
       )}
