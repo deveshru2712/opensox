@@ -73,4 +73,10 @@ export const blogs: BlogPost[] = [
     link: "https://x.com/ajeetunc/status/1989355142081065468?s=20",
     tag: "misc",
   },
+  {
+    date: "19-11-25",
+    linkText: "how to make your website design conistent?",
+    link: "https://x.com/ajeetunc/status/1991106654247743717?s=20",
+    tag: "engineering",
+  },
 ];
