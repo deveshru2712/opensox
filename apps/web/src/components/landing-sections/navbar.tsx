@@ -2,10 +2,11 @@
 import React, { useState } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import Image from "next/image";
-import { Github, Menu, X } from "lucide-react";
+import { Github, Menu, Terminal, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import PrimaryButton from "../ui/custom-button";
 
 const Navbar = () => {
   const { scrollYProgress } = useScroll();
@@ -51,12 +52,12 @@ const Navbar = () => {
         " z-40  flex items-center justify-between px-4 py-3  bg-neutral-900/5 backdrop-blur-xl  border-white/10",
         isPricingPage
           ? "relative h-max md:w-full top-0 border-b"
-          : "fixed rounded-3xl top-4 border w-[94%] md:w-[80%] mx-auto left-1/2 -translate-x-1/2"
+          : "fixed rounded-3xl top-4 border w-[96%] md:w-[80%] mx-auto left-1/2 -translate-x-1/2"
       )}
     >
       <div className="flex items-center gap-3 w-full justify-between">
         {/* opensox logo */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1 lg:gap-3">
           <button
             className="md:hidden text-white"
             onClick={() => setIsOpen(!isOpen)}
@@ -65,7 +66,7 @@ const Navbar = () => {
           >
             {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
-          <div className="text-lg lg:text-2xl  font-medium tracking-tighter flex items-center gap-2">
+          <div className="text-base lg:text-2xl  font-medium tracking-tighter flex items-center gap-2">
             <div className="w-8 md:w-10 aspect-square overflow-hidden relative">
               <Image
                 src="/assets/logo.svg"
@@ -97,7 +98,7 @@ const Navbar = () => {
         </div>
 
         {/* git link */}
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="flex items-center gap-3">
           <Link
             href="https://github.com/apsinghdev/opensox"
             target="_blank"
@@ -106,6 +107,15 @@ const Navbar = () => {
           >
             <Github className="w-5 h-5" />
             <span className="text-sm font-medium">Contribute</span>
+          </Link>
+          <Link
+            href="/dashboard/home"
+            className="flex md:hidden lg:flex cursor-pointer z-30"
+          >
+            <PrimaryButton classname=" px-3 py-2 text-sm whitespace-nowrap md:px-5 md:py-3 md:text-base">
+              <Terminal className="w-4 h-4 md:w-5 md:h-5" />
+              <span>Get Started</span>
+            </PrimaryButton>
           </Link>
         </div>
         {/* mobile nav dropdown */}
